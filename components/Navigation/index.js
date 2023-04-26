@@ -9,10 +9,10 @@ export default function Navigation() {
     return(
     <div>
       <p>
-        <StyledLink href="/" aria-label="Pieces">List of all Pieces</StyledLink>
+        <StyledLink href="/art-pieces" aria-label="Pieces">List of all Pieces</StyledLink>
       </p>
       <p>
-        <StyledLink href="/spotlight" aria-label="Spotlight">Get your inspiration here</StyledLink>
+        <StyledLink href="/" aria-label="Spotlight">Get your inspiration here</StyledLink>
       </p>
       <p>
         <StyledLink href="/favorites" aria-label="Favorites">favorites</StyledLink>
