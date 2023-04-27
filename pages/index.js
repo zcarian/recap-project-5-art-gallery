@@ -1,7 +1,18 @@
-export default function SpotlightPage() {
-    return (
-      <div>
-        spotlight
-      </div>
-    );
-  }
+// export default function SpotlightPage() {
+//     return (
+//       <div>
+//         spotlight
+//       </div>
+//     );
+//   }
+
+import SpotlightPreview from "../components/SpotlightPreview";
+
+export default function SpotlightPage({ data }) {
+  return (
+    <div>
+      <h1>Spotlight</h1>
+      <SpotlightPreview data={data} />
+    </div>
+  );
+}
