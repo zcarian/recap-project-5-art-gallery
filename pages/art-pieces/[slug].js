@@ -1,20 +1,15 @@
 import { useRouter } from 'next/router'
 import ArtPieceDetails from '../../components/ArtPieceDetalis'
 
-export default function PieceDeteiled({data}){
+export default function PieceDeteiled({artPiecesInfo, onToggleFavorite}){
     const route = useRouter();
     const { slug } = route.query;
-    const piece = data.find((ele)=>ele.slug === slug);
-
-    const {name, artist, year, genre, imageSource} = piece;
+    const piece = artPiecesInfo.find((ele)=>ele.slug === slug);
 
     return (
         <ArtPieceDetails 
-            name={name} 
-            artist={artist} 
-            year={year} 
-            genre={genre} 
-            image={imageSource}
+            piece = {piece}
+            onToggleFavorite={onToggleFavorite}
         />
     )
 }

@@ -1,8 +1,23 @@
 import ArtPieceDetails from ".";
 import { render, screen } from "@testing-library/react";
 
+const mockData = [
+    {
+        name: 'Art Piece 1',
+        slug: 'art-piece-1',
+        imageSource: 'https://picsum.photos/200/300',
+        artist: 'Artist',
+        year: '1',
+        genre: 'Genre',
+        isFavorite: false,
+    },
+];
+
 test("ArtPieceDetails component displays the name, artist, year, genre and image of the art piece", () => {
-    render(<ArtPieceDetails image="https://picsum.photos/200/300" name="name"/>);
+
+    const onToggleFavorite = jest.fn();
+
+    render(<ArtPieceDetails piece={mockData} onToggleFavorite={onToggleFavorite}/>);
     const image = screen.getByLabelText(/image/i);
     expect(image).toBeInTheDocument();
 
