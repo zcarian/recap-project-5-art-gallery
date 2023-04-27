@@ -1,11 +1,3 @@
-// export default function SpotlightPage() {
-//     return (
-//       <div>
-//         spotlight
-//       </div>
-//     );
-//   }
-
 import SpotlightPreview from "../components/SpotlightPreview";
 
 export default function SpotlightPage({ data }) {

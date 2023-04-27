@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteButton from "../FavoriteButton";
+import CommentSection from "../CommentSection"
 
 export default function ArtPieceDetails({piece, onToggleFavorite}){
+
   const {name, artist, year, genre, slug, isFavorite, imageSource: image} = piece;
 
   return (
@@ -13,6 +15,7 @@ export default function ArtPieceDetails({piece, onToggleFavorite}){
       <h3 aria-label="Year">{year}</h3>
       <h3 aria-label="Genre">{genre}</h3>
       <FavoriteButton isFavorite={isFavorite} onToggleFavorite={onToggleFavorite} slug={slug}/>
+      <CommentSection />
       <Link href="/art-pieces" aria-label="Pieces">Go Back</Link>
     </div>
   );
