@@ -9,6 +9,7 @@ export default function App({ Component, pageProps }) {
 
   const {data , error, isLoading} = useSWR("https://example-apis.vercel.app/api/art", fetcher);
 
+if(data){
 
   return (
     <>
@@ -21,4 +22,5 @@ export default function App({ Component, pageProps }) {
       </SWRConfig>
     </>
   );
+}
 }
