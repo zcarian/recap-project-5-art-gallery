@@ -1,32 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-
+import CommentSection from "../CommentSection"
 
 export default function ArtPieceDetails({ image, name, artist, year, genre, }) {
-
-  /*---------------------------------------------------------
-  v v v Comment section v v v
-  ---------------------------------------------------------*/
-
-  const [comment, setComment] = useState("");
-  const [commentsList, setCommentsList] = useState([]);
-
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (comment) {
-      setCommentsList((prevList) => [...prevList, { text: comment, time: new Date() }]);
-      setComment("");
-    }
-  };
-
-  /*---------------------------------------------------------
-  ^ ^ ^ Comment section  ^ ^ ^
-  ---------------------------------------------------------*/
 
   return (
     <div>
@@ -36,28 +12,7 @@ export default function ArtPieceDetails({ image, name, artist, year, genre, }) {
       <h3 aria-label="Year">{year}</h3>
       <h3 aria-label="Genre">{genre}</h3>
 
-
-      {<form onSubmit={handleFormSubmit}>
-        <h1>Comments</h1>
-        <label htmlFor="comment">Comment:</label>
-        <input
-          type="text"
-          id="comment"
-          value={comment}
-          onChange={handleCommentChange}
-          required
-        />
-        <button type="submit">Send</button>
-      </form>}
-
-      <ul>
-        {commentsList.map((comment, index) => (
-          <li key={index}>
-            <p>{comment.text}</p>
-            <p>{comment.time.toLocaleString()}</p>
-          </li>
-        ))}
-      </ul>
+      <CommentSection />
 
       <Link href="/art-pieces" aria-label="Pieces">Go Back</Link>
     </div>
