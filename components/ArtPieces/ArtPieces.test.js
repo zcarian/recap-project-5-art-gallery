@@ -36,3 +36,9 @@ test("Each art piece's image, name and artist are displayed", () => {
     const artists = screen.getAllByLabelText(/artist/i);
     expect(artists).toHaveLength(mockData.length);
 });
+
+test('The favorite-button is displayed in each entry in the list view', () => {
+    render(<ArtPieces data={mockData}/>);
+    const buttons = screen.getAllByRole('button', {name: /favorite/i});
+    expect(buttons).toHaveLength(mockData.length);
+})
