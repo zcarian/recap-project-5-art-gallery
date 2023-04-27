@@ -11,8 +11,6 @@ export default function App({ Component, pageProps }) {
 
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
-  
-
   function handleToggleFavorite(slug){
     setArtPiecesInfo(
       artPiecesInfo.map((artPiece) => {
