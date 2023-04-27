@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+
 export default function ArtPieceDetails({image, name, artist, year, genre,}){
     return (
       <div>
@@ -7,6 +9,7 @@ export default function ArtPieceDetails({image, name, artist, year, genre,}){
         <h3>{artist}</h3>
         <h3>{year}</h3>
         <h3>{genre}</h3>
+        <Link href="/art-pieces">Go Back</Link>
       </div>
     );
 }

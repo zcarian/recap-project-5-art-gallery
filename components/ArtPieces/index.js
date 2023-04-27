@@ -6,8 +6,9 @@ export default function ArtPieces({data}) {
         <ul>
             {data.map((piece)=>{
                 return (<li key={piece.slug}>
-                         <ArtPiecePreview name={piece.name} image={piece.imageSource} artist={piece.artist}/>
-                         <Link href={`art-pieces/${piece.slug}`}>Learn more</Link>
+                          <Link href={`art-pieces/${piece.slug}`}>
+                             <ArtPiecePreview name={piece.name} image={piece.imageSource} artist={piece.artist}/>                            
+                          </Link>
                         </li>)
             })}
         </ul>
