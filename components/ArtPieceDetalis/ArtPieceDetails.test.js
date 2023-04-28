@@ -50,3 +50,17 @@ test('Clicking the favorite-button on a non-favorite piece saves it as a favorit
     favoriteButton.click();
     expect(onToggleFavorite).toHaveBeenCalledTimes(1);
 })
+
+test("ArtPieceDetails component displays the colors of the art piece", () => {
+    const onToggleFavorite = jest.fn();
+    const onFormSubmit = jest.fn();
+
+    render(<ArtPieceDetails piece={mockData[0]} onToggleFavorite={onToggleFavorite} onFormSubmit={onFormSubmit} />);
+
+    const colorCircles = screen.getAllByTestId("color-circle");
+    expect(colorCircles).toHaveLength(mockData[0].colors.length);
+
+    mockData[0].colors.forEach((color, index) => {
+        expect(colorCircles[index]).toHaveStyle(`background-color: ${color}`);
+    });
+});
