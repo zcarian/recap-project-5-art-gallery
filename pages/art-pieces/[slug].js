@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import ArtPieceDetails from '../../components/ArtPieceDetalis'
 
-export default function PieceDeteiled({artPiecesInfo, onToggleFavorite}){
+export default function PieceDeteiled({artPiecesInfo, onToggleFavorite, onFormSubmit}){
     const route = useRouter();
     const { slug } = route.query;
     const piece = artPiecesInfo.find((ele)=>ele.slug === slug);
@@ -10,6 +10,7 @@ export default function PieceDeteiled({artPiecesInfo, onToggleFavorite}){
         <ArtPieceDetails 
             piece = {piece}
             onToggleFavorite={onToggleFavorite}
+            onFormSubmit={onFormSubmit}
         />
     )
 }
