@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
         })
       )
     }
-  },[artPiecesInfo])
+  },[artPiecesInfo, data])
 
   function handleToggleFavorite(slug){
     setArtPiecesInfo(
