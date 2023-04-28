@@ -12,7 +12,6 @@ export default function CommentForm({ onFormSubmit, slug }) {
         if (comment) {
             onFormSubmit(slug, comment);
             setComment("");
-            console.log(comment);
         }
     };
 
