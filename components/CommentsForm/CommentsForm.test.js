@@ -21,19 +21,18 @@ test('renders a submit button labeled "Send"', () => {
 
 test('After submitting the form, the comment is appended to the list of comments', () => {
     const onFormSubmit = jest.fn();
+    const slug = 'test-slug';
+    const commentText = 'This is a test comment';
 
-    render(<CommentForm onFormSubmit={onFormSubmit} />);
+    render(<CommentForm onFormSubmit={onFormSubmit} slug={slug} />);
 
     const commentInput = screen.getByLabelText('Comment:');
     const sendButton = screen.getByRole('button', { name: /send/i });
-
-    const commentText = 'This is a test comment';
 
     fireEvent.change(commentInput, { target: { value: commentText } });
     fireEvent.click(sendButton);
 
     expect(onFormSubmit).toHaveBeenCalledTimes(1);
-    expect(onFormSubmit).toHaveBeenCalledWith(commentText);
+    expect(onFormSubmit).toHaveBeenCalledWith(slug, commentText);
 
-    // Also added a test in the Comments component to check if comment is actually rendered.
 });
