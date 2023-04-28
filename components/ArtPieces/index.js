@@ -7,7 +7,6 @@ export default function ArtPieces({data, onToggleFavorite}) {
             {data.map((piece)=>{
                 return (<li key={piece.slug}>
                             <ArtPiecePreview piece={piece} onToggleFavorite={onToggleFavorite}/>                            
-                            <Link href={`art-pieces/${piece.slug}`}>Learn more</Link>
                         </li>)
             })}
         </ul>
