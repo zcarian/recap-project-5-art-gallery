@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
 
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
 
-  function handleToggleFavorite(slug){
+   function handleToggleFavorite(slug){
     setArtPiecesInfo(
       artPiecesInfo.map((artPiece) => {
         if(artPiece.slug === slug){
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
         return artPiece;
       })
     )
-    console.log("slug: ",slug);
+    // console.log("slug: ",slug);
   }
 
   useEffect(() => {
@@ -48,7 +48,6 @@ export default function App({ Component, pageProps }) {
         <GlobalStyle />
           <Navigation />
           <Component {...pageProps} 
-          // data={data}
           artPiecesInfo={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
           />

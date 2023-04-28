@@ -1,5 +1,7 @@
 import ArtPieceDetails from ".";
+import FavoritesPage from "../../pages/favorites";
 import { render, screen } from "@testing-library/react";
+
 
 const mockData = [
     {
@@ -20,6 +22,7 @@ test("ArtPieceDetails component displays the name, artist, year, genre and image
     render(<ArtPieceDetails piece={mockData} onToggleFavorite={onToggleFavorite}/>);
     const image = screen.getByLabelText(/image/i);
     expect(image).toBeInTheDocument();
+    
 
     const name = screen.getByLabelText(/name/i);
     expect(name).toBeInTheDocument();
@@ -32,4 +35,15 @@ test("ArtPieceDetails component displays the name, artist, year, genre and image
 
     const genre = screen.getByLabelText(/genre/i);
     expect(genre).toBeInTheDocument();
+
+    const favoriteButton = screen.getByLabelText(/favorite-button/i);
+    expect(favoriteButton).toBeInTheDocument();
 });
+
+test('Clicking the favorite-button on a non-favorite piece saves it as a favorite',()=>{
+    const onToggleFavorite = jest.fn();
+    render(<ArtPieceDetails piece={mockData} onToggleFavorite={onToggleFavorite}/>);
+    const favoriteButton = screen.getByLabelText(/favorite-button/i);
+    favoriteButton.click();
+    expect(onToggleFavorite).toBeCalledTimes(1);
+})
