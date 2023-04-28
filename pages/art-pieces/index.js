@@ -1,11 +1,14 @@
 import ArtPieces from '../../components/ArtPieces';
 
-export default function PiecesPage({artPiecesInfo, onToggleFavorite, onFormSubmit}) {
+export default function PiecesPage({artPiecesInfo, onToggleFavorite,}) {
   
   
     return (
       <div>
-        <ArtPieces data={artPiecesInfo} onToggleFavorite={onToggleFavorite} onFormSubmit={onFormSubmit}/>
+        <ArtPieces 
+        data={artPiecesInfo} 
+        onToggleFavorite={onToggleFavorite} 
+        />
       </div>
     );
   

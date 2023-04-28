@@ -5,12 +5,21 @@ import Comments from "../Comments";
 import CommentsForm from "../CommentsForm";
 import styled from "styled-components";
 
-export default function ArtPieceDetails({piece, onToggleFavorite, onFormSubmit}){
+export default function ArtPieceDetails({piece, 
+  onToggleFavorite, 
+  onFormSubmit, 
+  // onCommentDelete
+}){
 
   const {name, artist, year, genre, slug, isFavorite, imageSource: image} = piece;
 
   const commentsList = piece.commentsList;
 
+  // const id = {...piece.commentsList}
+
+  // const text = {...id[0]};
+  
+  // const test = text.id
   return (
     <div>
       <Image src={image} alt={name} width={300} height={300} aria-label="Image"/>
@@ -25,17 +34,15 @@ export default function ArtPieceDetails({piece, onToggleFavorite, onFormSubmit})
       </ColorsContainer>
       <FavoriteButton isFavorite={isFavorite} onToggleFavorite={onToggleFavorite} slug={slug}/>
       <CommentsForm onFormSubmit={onFormSubmit} slug={slug}/>
-      <Comments commentsList={commentsList}/>
+      <Comments 
+      commentsList={commentsList} 
+      // onCommentDelete={onCommentDelete} 
+      // slug={slug}
+      />
       <Link href="/art-pieces" aria-label="Pieces">Go Back</Link>
     </div>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const ColorsContainer = styled.div`
   display: flex;

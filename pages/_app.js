@@ -1,8 +1,9 @@
 import GlobalStyle from "../styles";
 import Navigation from "../components/Navigation";
 import useSWR from "swr";
-import { useState ,useEffect } from "react";
+import { useEffect } from "react";
 import { useImmerLocalStorageState } from "../utils/useImmerLocalStorageState";
+import { uid } from "uid";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -13,13 +14,10 @@ export default function App({ Component, pageProps }) {
     { defaultValue: [] }
     );  
     
-  // if(artPiecesInfo.length === 0){
   const {data , error, isLoading} = useSWR("https://example-apis.vercel.app/api/art", fetcher)
   
-    // console.log(artPiecesInfo.length===0);
-
   useEffect(() => {
-    if(data){
+    if(data && artPiecesInfo.length === 0){
       console.log("here");
       setArtPiecesInfo(
         data.map((artPiece) => {
@@ -27,16 +25,7 @@ export default function App({ Component, pageProps }) {
         })
       )
     }
-  },[])
-
-    if(isLoading){
-      return <div>Loading...</div>
-    }
-    
-    if(error){
-      return <div>Error...</div>
-    }
-  // }
+  },[artPiecesInfo])
 
   function handleToggleFavorite(slug){
     setArtPiecesInfo(
@@ -49,22 +38,36 @@ export default function App({ Component, pageProps }) {
     )
   }
 
-  // const handleFormSubmit2 = (comment) => {
-  //   setCommentsList((prevList) => [
-  //     { text: comment, time: new Date() },
-  //     ...prevList,
-  //   ]);
-  // };
-
   function handleFormSubmit(slug, comment) {
     setArtPiecesInfo(
       artPiecesInfo.map((artPiece) => {
         if(artPiece.slug === slug){
-          return {...artPiece, commentsList: [ {text: comment, time: new Date()}, ...artPiece.commentsList]}
+          return {...artPiece, commentsList: [ {text: comment, time: new Date(), id: uid()}, ...artPiece.commentsList]}
         }
         return artPiece;
       })
     )
+  }
+  
+  // function handleCommentDelete(slug , commentId){
+  //   console.log("slug:",slug );
+  //   console.log("commentId:",commentId );
+  //   setArtPiecesInfo(
+  //     artPiecesInfo.map((artPiece) => {
+  //       if(artPiece.slug === slug){
+  //         return {...artPiece, commentsList: artPiece.commentsList.filter((comment) => comment.id !== commentId)}
+  //       }
+  //       return artPiece;
+  //     })
+  //   )
+  // }
+
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+  
+  if(error){
+    return <div>Error...</div>
   }
 
   return (
@@ -75,6 +78,7 @@ export default function App({ Component, pageProps }) {
         artPiecesInfo={artPiecesInfo}
         onToggleFavorite={handleToggleFavorite}
         onFormSubmit={handleFormSubmit}
+        // onCommentDelete={handleCommentDelete}
         />
     </>
     );
