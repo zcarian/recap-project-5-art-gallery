@@ -11,39 +11,42 @@ const mockData = [
         artist: 'Artist',
         year: '1',
         genre: 'Genre',
+        colors: ['#ffffff', '#000000'],
         isFavorite: false,
+        commentsList: []
     },
 ];
 
 test("ArtPieceDetails component displays the name, artist, year, genre and image of the art piece", () => {
 
     const onToggleFavorite = jest.fn();
+    const onFormSubmit = jest.fn();
 
-    render(<ArtPieceDetails piece={mockData} onToggleFavorite={onToggleFavorite}/>);
-    const image = screen.getByLabelText(/image/i);
+    render(<ArtPieceDetails piece={mockData[0]} onToggleFavorite={onToggleFavorite} onFormSubmit={onFormSubmit} />);
+    const image = screen.getByLabelText(/Image/i);
     expect(image).toBeInTheDocument();
-    
 
-    const name = screen.getByLabelText(/name/i);
+
+    const name = screen.getByLabelText(/Name/i);
     expect(name).toBeInTheDocument();
 
-    const artist = screen.getByLabelText(/artist/i);
+    const artist = screen.getByLabelText(/Artist/i);
     expect(artist).toBeInTheDocument();
-    
-    const year = screen.getByLabelText(/year/i);
+
+    const year = screen.getByLabelText(/Year/i);
     expect(year).toBeInTheDocument();
 
-    const genre = screen.getByLabelText(/genre/i);
+    const genre = screen.getByLabelText(/Genre/i);
     expect(genre).toBeInTheDocument();
 
     const favoriteButton = screen.getByLabelText(/favorite-button/i);
     expect(favoriteButton).toBeInTheDocument();
 });
 
-test('Clicking the favorite-button on a non-favorite piece saves it as a favorite',()=>{
+test('Clicking the favorite-button on a non-favorite piece saves it as a favorite', () => {
     const onToggleFavorite = jest.fn();
-    render(<ArtPieceDetails piece={mockData} onToggleFavorite={onToggleFavorite}/>);
+    render(<ArtPieceDetails piece={mockData[0]} onToggleFavorite={onToggleFavorite} />);
     const favoriteButton = screen.getByLabelText(/favorite-button/i);
     favoriteButton.click();
-    expect(onToggleFavorite).toBeCalledTimes(1);
+    expect(onToggleFavorite).toHaveBeenCalledTimes(1);
 })
