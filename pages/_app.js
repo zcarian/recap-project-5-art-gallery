@@ -2,16 +2,43 @@ import GlobalStyle from "../styles";
 import Navigation from "../components/Navigation";
 import useSWR from "swr";
 import { useState ,useEffect } from "react";
+import { useImmerLocalStorageState } from "../utils/useImmerLocalStorageState";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function App({ Component, pageProps }) {
 
-  const {data , error, isLoading} = useSWR("https://example-apis.vercel.app/api/art", fetcher);
+  const [artPiecesInfo, setArtPiecesInfo] = useImmerLocalStorageState(
+    "art-pieces-info",
+    { defaultValue: [] }
+    );  
+    
+  // if(artPiecesInfo.length === 0){
+  const {data , error, isLoading} = useSWR("https://example-apis.vercel.app/api/art", fetcher)
+  
+    // console.log(artPiecesInfo.length===0);
 
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  useEffect(() => {
+    if(data){
+      console.log("here");
+      setArtPiecesInfo(
+        data.map((artPiece) => {
+          return {...artPiece, isFavorite: false, commentsList: []}
+        })
+      )
+    }
+  },[])
 
-   function handleToggleFavorite(slug){
+    if(isLoading){
+      return <div>Loading...</div>
+    }
+    
+    if(error){
+      return <div>Error...</div>
+    }
+  // }
+
+  function handleToggleFavorite(slug){
     setArtPiecesInfo(
       artPiecesInfo.map((artPiece) => {
         if(artPiece.slug === slug){
@@ -20,38 +47,35 @@ export default function App({ Component, pageProps }) {
         return artPiece;
       })
     )
-    // console.log("slug: ",slug);
   }
 
-  useEffect(() => {
-    if(data){
-      setArtPiecesInfo(
-        data.map((artPiece) => {
-          return {...artPiece, isFavorite: false}
-        })
-      )
-    }},[data])
-  
-  if(isLoading){
-    return <div>Loading...</div>
+  // const handleFormSubmit2 = (comment) => {
+  //   setCommentsList((prevList) => [
+  //     { text: comment, time: new Date() },
+  //     ...prevList,
+  //   ]);
+  // };
+
+  function handleFormSubmit(slug, comment) {
+    setArtPiecesInfo(
+      artPiecesInfo.map((artPiece) => {
+        if(artPiece.slug === slug){
+          return {...artPiece, commentsList: [ {text: comment, time: new Date()}, ...artPiece.commentsList]}
+        }
+        return artPiece;
+      })
+    )
   }
-  
-  if(error){
-    return <div>Error...</div>
-  }
-  
-  if(data){
-    // console.log("data: ",data);
-    // console.log("ArtPieceInfo",artPiecesInfo);
-    return (
-      <>
-        <GlobalStyle />
-          <Navigation />
-          <Component {...pageProps} 
-          artPiecesInfo={artPiecesInfo}
-          onToggleFavorite={handleToggleFavorite}
-          />
-      </>
+
+  return (
+    <>
+      <GlobalStyle />
+        <Navigation />
+        <Component {...pageProps} 
+        artPiecesInfo={artPiecesInfo}
+        onToggleFavorite={handleToggleFavorite}
+        onFormSubmit={handleFormSubmit}
+        />
+    </>
     );
-  }
 }
