@@ -1,4 +1,6 @@
-# New Project
+# Art gallery app
+
+![](https://github.com/zcarian/recap-project-5-art-gallery/blob/main/public/preview.gif)
 
 This project was created from the neue fische next template.
 
